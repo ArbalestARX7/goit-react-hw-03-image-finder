@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Report } from 'notiflix';
 
 class Searchbar extends Component {
   state = {
@@ -14,6 +15,14 @@ class Searchbar extends Component {
 
     const { onSearch } = this.props;
     const { querry } = this.state;
+
+    if (querry.trim() === '') {
+      Report.info(
+        'You need to write a request',
+        'At your request, cool pictures will be uploaded :)',
+        'OK'
+      );
+    }
 
     onSearch(querry);
   };

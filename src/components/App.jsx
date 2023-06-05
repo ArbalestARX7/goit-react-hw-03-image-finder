@@ -1,9 +1,23 @@
 import React, { Component } from 'react';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Modal from 'components/Modal/Modal';
 
 class App extends Component {
-  state = { querry: '', page: 1 };
+  state = {
+    querry: '',
+    page: 1,
+    largeImage: '',
+    showModal: false,
+  };
+
+  showModal = image => {
+    this.setState({ showModal: true, largeImage: image });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false });
+  };
 
   findImagesByQuerry = newQuerry => {
     this.setState({ querry: newQuerry, page: 1 });
@@ -14,7 +28,7 @@ class App extends Component {
   };
 
   render() {
-    const { querry, page } = this.state;
+    const { querry, page, largeImage, showModal } = this.state;
     return (
       <div className="App">
         <Searchbar onSearch={this.findImagesByQuerry} />
@@ -22,7 +36,9 @@ class App extends Component {
           imagesQuerry={querry}
           page={page}
           onLoadMore={this.onLoadMore}
+          showLargeImage={this.showModal}
         />
+        {showModal && <Modal largeImage={largeImage} closeModal={this.closeModal} />}
       </div>
     );
   }
