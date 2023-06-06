@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Notify, Report } from 'notiflix';
+import PropTypes from 'prop-types';
 import getPhotos from '../API/API';
-import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
-import { Button } from 'components/Button/Button';
-import { Oval } from 'react-loader-spinner';
+import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
+import Button from 'components/Button/Button';
+import Loader from 'components/Loader/Loader';
+import css from './ImageGallery.module.css';
 
 class ImageGallery extends Component {
   state = {
@@ -59,26 +61,13 @@ class ImageGallery extends Component {
     }
 
     if (status === 'pending') {
-      return (
-        <Oval
-          height={80}
-          width={80}
-          color="#303f9f"
-          wrapperStyle={{}}
-          wrapperClass="Spinner"
-          visible={true}
-          ariaLabel="oval-loading"
-          secondaryColor="#3f51b5"
-          strokeWidth={2}
-          strokeWidthSecondary={2}
-        />
-      );
+      return <Loader />;
     }
 
     if (status === 'resolved') {
       return (
         <>
-          <ul className="ImageGallery">
+          <ul className={css.ImageGallery}>
             {images.map(({ id, webformatURL, largeImageURL }) => (
               <ImageGalleryItem
                 key={id}
@@ -109,3 +98,10 @@ class ImageGallery extends Component {
 }
 
 export default ImageGallery;
+
+ImageGallery.propTypes = {
+  imagesQuerry: PropTypes.string.isRequired,
+  page: PropTypes.number.isRequired,
+  onLoadMore: PropTypes.func.isRequired,
+  showLargeImage: PropTypes.func.isRequired,
+};

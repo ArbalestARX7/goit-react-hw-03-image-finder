@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Report } from 'notiflix';
+import PropTypes from 'prop-types';
+import css from './Searchbar.module.css';
 
 class Searchbar extends Component {
   state = {
@@ -29,18 +31,18 @@ class Searchbar extends Component {
 
   render() {
     return (
-      <header className="Searchbar">
-        <form className="SearchForm">
+      <header className={css.Searchbar}>
+        <form className={css.SearchForm}>
           <button
             type="submit"
-            className="SearchForm-button"
+            className={css.SearchFormButton}
             onClick={this.handleSubmit}
           >
-            <span className="SearchForm-button-label">Search</span>
+            <span className={css.SearchFormButtonLabel}>Search</span>
           </button>
 
           <input
-            className="SearchForm-input"
+            className={css.SearchFormInput}
             type="text"
             autoComplete="off"
             autoFocus
@@ -55,3 +57,7 @@ class Searchbar extends Component {
 }
 
 export default Searchbar;
+
+Searchbar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
