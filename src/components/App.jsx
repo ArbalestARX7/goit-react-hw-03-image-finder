@@ -6,7 +6,7 @@ import Modal from 'components/Modal/Modal';
 
 import Button from 'components/Button/Button';
 import Loader from './Loader/Loader';
-import getPhotos from './api/API';
+import getPhotos from './API/API';
 
 class App extends Component {
   state = {
