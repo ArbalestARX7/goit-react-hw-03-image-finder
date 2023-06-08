@@ -19,7 +19,7 @@ class App extends Component {
     status: 'idle',
     disabledBtn: true,
     imagesAmount: '',
-  };
+};
 
   async componentDidUpdate(prevProps, prevState) {
     const oldQuerry = prevState.querry;
@@ -36,6 +36,11 @@ class App extends Component {
       try {
         this.setState({ status: 'pending' });
         const newImages = await getPhotos(newQuerry, newPage);
+
+        if (newImages.hits.length < 12) {
+          this.setState({ disabledBtn: false });
+          
+        }
 
         this.setState({
           images: newImages.hits,
