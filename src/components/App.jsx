@@ -39,8 +39,7 @@ class App extends Component {
 
         if (newImages.hits.length < 12) {
           this.setState({ disabledBtn: false });
-          
-        }
+          } else{this.setState({disabledBtn: true})}
 
         this.setState({
           images: newImages.hits,
@@ -89,7 +88,7 @@ class App extends Component {
   };
 
   render() {
-    const { largeImage, showModal, images, status, disabledBtn, imagesAmount } =
+    const { largeImage, showModal, images, status, disabledBtn } =
       this.state;
     return (
       <div className="App">
@@ -107,8 +106,8 @@ class App extends Component {
               <Modal largeImage={largeImage} closeModal={this.closeModal} />
             )}
 
-            {images.length !== imagesAmount && (
-              <Button onLoadMore={this.onLoadMore} disabledBtn={disabledBtn} />
+            {disabledBtn && (
+              <Button onLoadMore={this.onLoadMore}  />
             )}
 
             {images.length === 0 &&
